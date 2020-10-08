@@ -1,0 +1,13 @@
+{
+"welcome": "Welcome to the Mortgage Calculator",
+"askDuration": "Enter duration of loan in years: ",
+"displayLine": "-------------------------",
+"invalidYear": "Invalid number of years - Enter a number of 1 or more: ",
+"APR": "Please enter an APR of 0 or higher: ",
+"invalidAPR": "Please add a valid APR number of 0 to 100: ",
+"loanAmount": "Enter loan amount in dollars (a number): ",
+"invalidAmount": "Please enter a correct amount above 0 (e.g. 100000): ",
+"anotherCalc": "Do you need to do another calculation? ",
+"invalidAgain": "Please enter 'y' or 'n'. ",
+"thanks" : "Thank you for using the calculator - Goodbye. "
+}
