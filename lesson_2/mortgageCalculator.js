@@ -1,5 +1,6 @@
 const MESSAGES = require('./mortgageMessages.json');
 let readline = require('readline-sync');
+const VALID_ANSWERS = ['y', 'yes', 'n', 'no'];
 
 function prompt(message) {
   console.log(`${message}`);
@@ -11,16 +12,16 @@ function isInvalidNumber(num) {
          Number.isNaN(Number(num));
 }
 
-function checkPeriods(num) {
+function includesDecimal(num) {
   return num.split('')
     .filter(number => number.includes('.')).length > 1;
 }
 
-function checkAprMax(apr) {
+function validAprMax(apr) {
   return Number(apr) > 100;
 }
 
-function checkLoanDuration(duration) {
+function validLoanDuration(duration) {
   return Number(duration <= 0);
 }
 
@@ -28,6 +29,16 @@ function calculatePayment(loanDuration, loanAmount, monthlyInterest) {
   return loanAmount *
          (monthlyInterest /
          (1 - Math.pow((1 + monthlyInterest), (-loanDuration))));
+}
+
+function isValidResponse(response) {
+  let count = 0;
+  for (let index = 0; index < response.length; index++) {
+    if (VALID_ANSWERS.indexOf(response[index]) === -1) {
+      count += 1;
+    }
+  }
+  return count === response.length || response.length > 1;
 }
 
 console.clear();
@@ -39,7 +50,7 @@ while (true) {
   prompt(MESSAGES['loanAmount']);
   let loanAmount = readline.question();
 
-  while (isInvalidNumber(loanAmount) || checkPeriods(loanAmount)) {
+  while (isInvalidNumber(loanAmount) || includesDecimal(loanAmount)) {
     prompt(MESSAGES['invalidAmount']);
     loanAmount = readline.question();
   }
@@ -47,14 +58,14 @@ while (true) {
   prompt(MESSAGES['APR']);
   let apr = readline.question();
 
-  while (isInvalidNumber(apr) || checkAprMax(apr)) {
+  while (isInvalidNumber(apr) || validAprMax(apr)) {
     prompt(MESSAGES['invalidAPR']);
     apr = readline.question();
   }
   prompt(MESSAGES['askDuration']);
   let loanDuration = readline.question();
 
-  while (isInvalidNumber(loanDuration) || checkLoanDuration(loanDuration)) {
+  while (isInvalidNumber(loanDuration) || validLoanDuration(loanDuration)) {
     prompt(MESSAGES['invalidYear']);
     loanDuration = readline.question();
   }
@@ -71,21 +82,21 @@ while (true) {
   console.clear();
 
   console.log(`---------------------
-               Amount: $${loanAmount} 
-               Duration - month(s): ${durationInMonths}
-               APR: ${apr}% 
-               Monthly payment: $${monthlyPayment.toFixed(2)}`);
+      Amount: $${loanAmount} 
+      Duration - month(s): ${durationInMonths}
+      APR: ${apr}% 
+      Monthly payment: $${monthlyPayment.toFixed(2)}`);
   prompt(MESSAGES['anotherCalc']);
-  let answer = readline.question().toLowerCase();
+  let answer = readline.question().toLowerCase().split(' ');
 
-  while (answer[0] !== 'n' && answer[0] !== 'y') {
+  while (isValidResponse(answer)) {
     prompt(MESSAGES['invalidAgain']);
-    answer = readline.question().toLowerCase();
+    answer = readline.question().toLowerCase().split(' ');
   }
-
-  if (answer[0] === 'n' || answer[0] === 'no') {
+  if (answer.length === 1 && (answer[0] === 'n' || answer[0] === 'no')) {
     prompt(MESSAGES['thanks']);
     break;
+  } else {
+    console.clear();
   }
-  console.clear();
 }
