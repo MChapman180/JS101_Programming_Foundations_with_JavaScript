@@ -1,0 +1,15 @@
+{
+  "welcome": "Welcome to Rock, Paper, Scissors featuring Lizard and Spock.",
+  "gameRules": "To win you will need to reach 5 points before the opponent.",
+  "lineBreak": "-----------------------------------------------------",
+  "askForChoice": "Please enter:\n 'r' (rock)\n 's' (scissors)\n 'p' (paper)\n 'l' (lizard) \n 'sp' (spock)",
+  "playerWonRound": "You won the round",
+  "compWonRound": "The computer won the round",
+  "drawRound": "You drew the round",  
+  "anotherRound": "Press enter to continue or 'e' to exit game.",
+  "anotherFullGame": "Would you like to play another game? (y/n)",
+  "invalidUserChoice": "That's not a valid choice. Please enter r, s, p, l or sp",
+  "playerWinner": "and you have won the game!",
+  "computerWinner": "and the computer has won the game!",
+  "gameOver": "Thank you for playing and see you soon!"
+ }
