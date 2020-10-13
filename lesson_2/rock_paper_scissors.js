@@ -96,7 +96,7 @@ function retrieveGameWinner() {
 function retrieveAnswer() {
   let answer = readline.question().toLowerCase();
   while (isInvalidAnswer(answer)) {
-    prompt(MESSAGES["Please enter 'y' or 'n'."]);
+    prompt(MESSAGES["invalidUserChoice"]);
     answer = readline.question().toLowerCase();
   }
   return answer;
@@ -128,14 +128,14 @@ function playerWonGame() {
 function displayPlayerFinalWin() {
   prompt(MESSAGES['playerWinner']);
   prompt(MESSAGES['lineBreak']);
-  prompt(`You won the game by ${Math.abs(score.player - score.computer)} points`);
+  prompt(`You won the game by ${Math.abs(score.player - score.computer)} point(s)`);
   prompt(`Final score: Player: ${score.player} - Computer: ${score.computer}`);
 }
 
 function displayCompFinalWin() {
   prompt(MESSAGES['computerWinner']);
   prompt(MESSAGES['lineBreak']);
-  prompt(`You lost by ${Math.abs(score.computer - score.player)} points`);
+  prompt(`You lost by ${Math.abs(score.computer - score.player)} point(s)`);
   prompt(`Final score: Player: ${score.player} - Computer: ${score.computer}`);
 }
 
