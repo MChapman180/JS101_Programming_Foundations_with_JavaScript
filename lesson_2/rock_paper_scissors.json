@@ -8,6 +8,7 @@
   "drawRound": "You drew the round",  
   "anotherRound": "Press enter to continue or 'e' to exit game.",
   "anotherFullGame": "Would you like to play another game? (y/n)",
+  "invalidExitChoice": "Please enter a valid choice",
   "invalidUserChoice": "That's not a valid choice. Please enter r, s, p, l or sp",
   "playerWinner": "and you have won the game!",
   "computerWinner": "and the computer has won the game!",

@@ -2,11 +2,11 @@ const readline = require('readline-sync');
 const MESSAGES = require('./rock_paper_scissors.json');
 
 const VALID_CHOICES = {
-  r: 'rock',
-  p: 'paper',
-  s: 'scissors',
-  l: 'lizard',
-  sp: 'spock'
+  rock: ['rock', 'r'],
+  paper: ['paper', 'p'],
+  scissors: ['scissors', 's'],
+  lizard: ['lizard', 'l'],
+  spock: ['spock', 'sp']
 };
 
 const VALID_ANSWERS = ['y', 'yes', 'n', 'no'];
@@ -34,13 +34,26 @@ function displayGameInfo() {
   prompt(`Score: Player: ${score.player} : computer: ${score.computer}`);
 }
 
-function retrieveUserChoice() {
-  let playerChoice = VALID_CHOICES[readline.question().toLowerCase()];
-  while (!Object.values(VALID_CHOICES).includes(playerChoice)) {
-    prompt(MESSAGES['invalidUserChoice']);
-    playerChoice = VALID_CHOICES[readline.question().toLowerCase()];
+function validateUserChoice(answer) {
+  let validChoiceArray = [].concat(...Object.values(VALID_CHOICES));
+  return !validChoiceArray.includes(answer);
+}
+
+function convertUserChoice(input) {
+  for (let [key, value] of Object.entries(VALID_CHOICES)) {
+    if (value.includes(input)) return key;
   }
-  return playerChoice;
+  return null;
+}
+
+function retrievePlayerChoice() {
+  prompt(MESSAGES["askForChoice"]);
+  let answer = readline.question().toLowerCase();
+  while (validateUserChoice(answer)) {
+    prompt(MESSAGES["invalidUserChoice"]);
+    answer = readline.question().toLowerCase();
+  }
+  return convertUserChoice(answer);
 }
 
 function retrieveRandomIndex() {
@@ -48,7 +61,7 @@ function retrieveRandomIndex() {
 }
 
 function retrieveComputerChoice(index) {
-  return Object.values(VALID_CHOICES)[index];
+  return Object.keys(VALID_CHOICES)[index];
 }
 
 function retrieveRoundWinner(playerOne, playerTwo) {
@@ -85,18 +98,14 @@ function displayScoreUpdate() {
 }
 
 function retrieveGameWinner() {
-  if (score.player === WINNING_SCORE) {
-    return true;
-  } else if (score.computer === WINNING_SCORE) {
-    return true;
-  }
-  return undefined;
+  return (score.player === WINNING_SCORE) ||
+  (score.computer === WINNING_SCORE);
 }
 
-function retrieveAnswer() {
+function retrieveEndAnswer() {
   let answer = readline.question().toLowerCase();
   while (isInvalidAnswer(answer)) {
-    prompt(MESSAGES["invalidUserChoice"]);
+    prompt(MESSAGES["invalidExitChoice"]);
     answer = readline.question().toLowerCase();
   }
   return answer;
@@ -104,7 +113,7 @@ function retrieveAnswer() {
 
 function continueGame() {
   let answer = readline.question().toLowerCase();
-  return answer !== 'e' || answer !== 'exit';
+  return answer !== 'e' && answer !== 'exit';
 }
 
 function isInvalidAnswer(answer) {
@@ -118,7 +127,7 @@ function resetScore() {
 
 function validateIfAnswerNo(answer) {
   return answer[0] === 'n' ||
-  (answer.slice(0, 2) === 'no' && answer.length === 2);
+  (answer === 'no' && answer.length === 2);
 }
 
 function playerWonGame() {
@@ -146,11 +155,8 @@ prompt(MESSAGES['lineBreak']);
 while (true) {
   while (true) {
     displayGameInfo();
-    prompt(MESSAGES['askForChoice']);
-
-    let userChoice = retrieveUserChoice();
+    let userChoice = retrievePlayerChoice();
     console.clear();
-
     let randomIndex = retrieveRandomIndex();
 
     let computerChoice = retrieveComputerChoice(randomIndex);
@@ -158,9 +164,7 @@ while (true) {
     prompt(`You chose ${userChoice} and the computer chose ${computerChoice}.`);
 
     let winner = retrieveRoundWinner(userChoice, computerChoice);
-
     displayRoundWinner(winner, userChoice, computerChoice);
-
     updateGameScore(winner, userChoice, computerChoice);
 
     if (retrieveGameWinner() && (playerWonGame())) {
@@ -183,7 +187,7 @@ while (true) {
   }
 
   prompt(MESSAGES['anotherFullGame']);
-  let answer = retrieveAnswer();
+  let answer = retrieveEndAnswer();
 
   console.clear();
 
