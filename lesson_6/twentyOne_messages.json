@@ -1,0 +1,21 @@
+{
+  "welcome": "The TwentyOne Game",
+  "rules": "Rules: Be the closest player to 21 to win or go bust if over 21.",
+  "cardRules": "Picture cards are worth 10, Ace is 11 (1 if total over 21).",
+  "moreRules":  "If you hit on your turn, you will be dealt another card.",
+  "dealerCardRules": "The dealer starts with 2 cards, but one won't be shown.",
+  "line": "------------------------------------------------",
+  "askHitOrStay": "Would you like to hit ('h') or stay ('s')?",
+  "invalid_response": "Incorrect answer, please choose hit ('h') or stay ('s').",
+  "playerCards": "You have the following cards: ",
+  "busted": "You're busted because you had over 21 points..",
+  "finalScores": "The final points are:",
+  "anotherGame": "Would you like to play another game? (y or n) ",
+  "invalidEndAnswer": "Incorrect answer, please choose 'y' or 'n' to play again)",
+  "choseHit": "You chose to hit.",
+  "dealerTurn": "It's now the dealers turn.",
+  "dealerHits": "The dealer hit..",
+  "youLost": "You lost the game.",
+  "dealerBust": "The dealer is bust.",
+  "thanks" : "Thank you for playing"
+}
