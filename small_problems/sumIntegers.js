@@ -62,6 +62,19 @@ function determineResult(integer, operator) {
     return sum;
 });
 }
+// could be used for array
+function determineResultArray(array, operator) {
+  return array.reduce((sum, current) => {
+    if(operator === 's') {
+      sum += current;
+    } else {
+  sum *= current;
+      
+    }
+    return sum;
+});
+}
+
 
 function displayResult(total, operator, integer) {
   if(operator === 's') {
